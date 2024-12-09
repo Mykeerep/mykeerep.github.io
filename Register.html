@@ -1,0 +1,47 @@
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="left-sidebar-sign-up-form">
+    <h1>Grow your network, and explore shared interests</h1>
+    <form action="register.php" method="post">
+    <div style="position:relative;">
+            <input type="text" class="input-box" name="username" id="username" placeholder="Your Username">
+        </div>
+        <!-- Email Input -->
+        <div style="position:relative;">
+            <input type="text" class="input-box" name="email" id="email" placeholder="Your Email">
+        </div>
+
+        <!-- Password Input -->
+        <div style="position:relative;">
+            <input type="password" class="input-box" name="password" id="password" placeholder="Your Password">
+            <!-- Show/Hide Password Button -->
+            <input type="button" class="toggle-password-btn" id="toggle-password" value="Show" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); display: none;">
+        </div>
+
+        <button type="submit" class="signup-btn">Register</button>
+        <p>Already have an account? <a href="Login.html">Login</a></p>
+    </form>
+</div>
+    <style>
+        .error-message {
+            color: #fff;
+            font-size: 14px;
+            margin-top: -12px;
+            background: #fd7676;
+            height: 18px;
+            position: absolute;
+            width: 293px;
+            left: 1px;
+            border-radius: 2px;
+        }
+    </style>
+    <script src="passwordshow.js"></script>
+</body>
+</html>
