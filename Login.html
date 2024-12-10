@@ -30,6 +30,13 @@
             animation: spin 2s linear infinite;
         }
 
+        
+     body.redirecting {
+      background: linear-gradient(90deg, #9C27B0, #ec5c18); /* Your gradient */
+      transition: background 0.5s ease-in-out; /* Smooth transition effect */
+    }
+    
+
         /* Spinner animation */
         @keyframes spin {
             0% { transform: rotate(0deg); }
@@ -122,5 +129,14 @@
             }
         });
     </script>
+    <script>
+  function redirectToSignup() {
+    document.body.classList.add('redirecting'); // Add the gradient class
+    setTimeout(() => {
+      window.location.href = "https://mykeerep.github.io/Register.html"; // Redirect to signup page
+    }, 500); // Delay to show the gradient for 0.5 seconds
+  }
+    </script>
+    
 </body>
 </html>
