@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Offline</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #ffffff;
+            color: #555;
+        }
+        .icon {
+            width: 80px;
+            height: 80px;
+            background-color: #ff4d4d;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .icon::before {
+            content: '💔';
+            font-size: 36px;
+            color: white;
+        }
+        h1 {
+            font-size: 24px;
+            margin: 0 0 10px;
+        }
+        p {
+            font-size: 16px;
+            margin: 0 0 20px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="icon"></div>
+    <h1>Whoops, something went wrong!</h1>
+    <p>Looks like you're offline. Please check your internet connection and try again.</p>
+    <button onclick="window.location.reload()">Refresh</button>
+</body>
+      </html>
+      <script>
+        const CACHE_NAME = 'offline-cache-v1';
+const OFFLINE_URL = '/offline.html';
+
+self.addEventListener('install', (event) => {
+    event.waitUntil(
+        caches.open(CACHE_NAME).then((cache) => {
+            return cache.add(OFFLINE_URL);
+        })
+    );
+});
+
+self.addEventListener('fetch', (event) => {
+    event.respondWith(
+        fetch(event.request).catch(() => {
+            return caches.match(OFFLINE_URL);
+        })
+    );
+});
+
+self.addEventListener('activate', (event) => {
+    event.waitUntil(
+        caches.keys().then((keyList) =>
+            Promise.all(
+                keyList.map((key) => {
+                    if (key !== CACHE_NAME) {
+                        return caches.delete(key);
+                    }
+                })
+            )
+        )
+    );
+});
+              
+      </script>
+
+      <script>
+        if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/sw.js').then(() => {
+        console.log('Service Worker Registered');
+    });
+        }
+        
+      </script>
