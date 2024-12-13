@@ -98,4 +98,13 @@ hr {
         margin-top: 153px;
         left: -8px;
     }
+    .input-box {
+    border-radius: 3px;
+    padding: 17px;
+    margin: 10px 0;
+    width: 90%;
+    margin-left: -6px;
+    border: 1px solid #999;
+    outline: none;
+    }
   }
