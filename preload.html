@@ -56,10 +56,29 @@
     <div class="loader-text">Social Network</div>
   </div>
   
-  <div class="content">
-    <h1>Welcome to the Page!</h1>
+  <!-- Your existing content (unchanged from the code you provided) -->
+    <div class="left-sidebar-sign-up-form">
+        <!--<h1><Chat Randomly, Connect Deeply.</h1> -->
+        <form action="register.php" method="post">
+        <!-- Email Input -->
+        <div style="position:relative;">
+            <input type="text" class="input-box" name="email" id="email" placeholder="Your Email">
+        </div>
 
-  </div>
+        <!-- Password Input -->
+        <div style="position:relative;">
+            <input type="password" class="input-box" name="password" id="password" placeholder="Your Password">
+            <!-- Show/Hide Password Button -->
+            <input type="button" class="toggle-password-btn" id="toggle-password" value="Show" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); display: none;">
+        </div>
+
+        <button type="submit" class="signup-btn">Register</button>
+        <p>Already have an account? <a href="Login.html">Login</a></p>
+    </form>
+        
+        <p>If You Don't Have An Account <a href="Register.html">Register</a></p>
+    </form>
+    </div>
 
   <script>
     // JavaScript
