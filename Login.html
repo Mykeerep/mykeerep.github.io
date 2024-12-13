@@ -6,32 +6,7 @@
     <title>Login</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        .input-box {
-            border-radius: 3px;
-            padding: 10px;
-            margin: 10px 0;
-            width: 90%;
-            border: 1px solid #999;
-            outline: none;
-        }
 
-        .signup-btn,
-        .dimmed-button {
-            width: 90%;
-            padding: 10px;
-            margin: 10px 0;
-            border-radius: 3px;
-            text-align: center;
-            cursor: pointer;
-            border: none;
-            background: #000;
-        }
-
-        .signup-btn {
-            background-color: #007BFF;
-            color: #fff;
-            display: none;
-        }
         
         /* Full-page loader overlay */
         #loader {
@@ -109,19 +84,17 @@
         <div style="position:relative;">
             <input type="text" class="input-box" name="email" id="email" placeholder="Your Email">
         </div>
-            
-            <!-- Password Input -->
+
+        <!-- Password Input -->
         <div style="position:relative;">
             <input type="password" class="input-box" name="password" id="password" placeholder="Your Password">
             <!-- Show/Hide Password Button -->
             <input type="button" class="toggle-password-btn" id="toggle-password" value="Show" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); display: none;">
         </div>
 
-        <!-- Conditional Button -->
-        <div id="button-wrapper">
-            <div class="dimmed-button">Login</div>
-            <button type="submit" class="signup-btn">Login</button>
-        </div>
+        <button type="submit" class="signup-btn">Register</button>
+        <p>Already have an account? <a href="Login.html">Login</a></p>
+    </form>
         
         <p>If You Don't Have An Account <a href="Register.html">Register</a></p>
     </form>
