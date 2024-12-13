@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Preloader styles */
+        #preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+
+        .loader-text {
+            font-family: Arial, sans-serif;
+            font-size: 24px;
+            font-weight: bold;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: #262626;
+            display: flex;
+            gap: 5px;
+        }
+
+        .loader-text span {
+            animation: fade 1.5s infinite;
+        }
+
+        .loader-text span:nth-child(1) {
+            animation-delay: 0s;
+        }
+
+        .loader-text span:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .loader-text span:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        .loader-text span:nth-child(4) {
+            animation-delay: 0.6s;
+        }
+
+        .loader-text span:nth-child(5) {
+            animation-delay: 0.8s;
+        }
+
+        .loader-text span:nth-child(6) {
+            animation-delay: 1s;
+        }
+
+        .loader-text span:nth-child(7) {
+            animation-delay: 1.2s;
+        }
+
+        .loader-text span:nth-child(8) {
+            animation-delay: 1.4s;
+        }
+
+        @keyframes fade {
+            0%, 100% {
+                opacity: 0;
+            }
+            50% {
+                opacity: 1;
+            }
+        }
+
+        /* Content styles (hidden during preloader) */
+        body.loaded .left-sidebar-sign-up-form {
+            opacity: 1;
+        }
+
+        body:not(.loaded) .left-sidebar-sign-up-form {
+            opacity: 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="loader-text">
+            <span>S</span>
+            <span>o</span>
+            <span>c</span>
+            <span>i</span>
+            <span>a</span>
+            <span>l</span>
+            <span>N</span>
+            <span>e</span>
+            <span>t</span>
+            <span>w</span>
+            <span>o</span>
+            <span>r</span>
+            <span>k</span>
+        </div>
+    </div>
+
+    <!-- Main content -->
+    <div class="left-sidebar-sign-up-form">
+        <h1>Grow your network, and explore shared interests</h1>
+        <form action="register.php" method="post">
+            <div style="position:relative;">
+                <input type="text" class="input-box" name="username" id="username" placeholder="Your Username">
+            </div>
+            <!-- Email Input -->
+            <div style="position:relative;">
+                <input type="text" class="input-box" name="email" id="email" placeholder="Your Email">
+            </div>
+
+            <!-- Password Input -->
+            <div style="position:relative;">
+                <input type="password" class="input-box" name="password" id="password" placeholder="Your Password">
+                <!-- Show/Hide Password Button -->
+                <input type="button" class="toggle-password-btn" id="toggle-password" value="Show" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); display: none;">
+            </div>
+
+            <button type="submit" class="signup-btn">Register</button>
+            <p>Already have an account? <a href="Login.html">Login</a></p>
+        </form>
+    </div>
+
+    <script>
+        // Preloader functionality
+        window.addEventListener('load', () => {
+            document.body.classList.add('loaded');
+            document.getElementById('preloader').style.display = 'none';
+        });
+
+        // Password visibility toggle
+        const passwordInput = document.getElementById('password');
+        const togglePasswordButton = document.getElementById('toggle-password');
+
+        passwordInput.addEventListener('input', () => {
+            togglePasswordButton.style.display = passwordInput.value.trim() ? 'block' : 'none';
+        });
+
+        togglePasswordButton.addEventListener('click', () => {
+            passwordInput.type = passwordInput.type === 'password' ? 'text' : 'password';
+            togglePasswordButton.value = passwordInput.type === 'password' ? 'Show' : 'Hide';
+        });
+    </script>
+</body>
+</html>
