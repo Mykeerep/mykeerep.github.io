@@ -81,6 +81,30 @@
     </form>
     </div>
 
+   <script>
+        const passwordInput = document.getElementById('password');
+        const togglePasswordButton = document.getElementById('toggle-password');
+
+        // Show the toggle button when typing
+        passwordInput.addEventListener('input', () => {
+            if (passwordInput.value.trim() !== '') {
+                togglePasswordButton.style.display = 'block';
+            } else {
+                togglePasswordButton.style.display = 'none';
+            }
+        });
+// Toggle password visibility
+        togglePasswordButton.addEventListener('click', () => {
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                togglePasswordButton.value = 'Hide';
+            } else {
+                passwordInput.type = 'password';
+                togglePasswordButton.value = 'Show';
+            }
+        });
+   </script>
+
   <script>
     // JavaScript
     document.addEventListener("DOMContentLoaded", () => {
