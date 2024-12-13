@@ -394,28 +394,29 @@ if ('serviceWorker' in navigator) {
 
 
     <script>
-        const emailInput = document.getElementById('email');
-        const passwordInput = document.getElementById('password');
-        const signupButton = document.querySelector('.signup-btn');
-        const dimmedButton = document.querySelector('.dimmed-button');
+        document.addEventListener('DOMContentLoaded', () => {
+    const emailInput = document.getElementById('email');
+    const passwordInput = document.getElementById('password');
+    const signupButton = document.querySelector('.signup-btn');
+    const dimmedButton = document.querySelector('.dimmed-button');
 
-        // Function to toggle button visibility
-        function toggleButton() {
-            if (
-                emailInput.value.trim() && // Email is not empty
-                passwordInput.value.trim().length >= 6 // Password has at least 6 characters
-            ) {
-                signupButton.style.display = 'block';
-                dimmedButton.style.display = 'none';
-            } else {
-                signupButton.style.display = 'none';
-                dimmedButton.style.display = 'block';
-            }
+    function toggleButton() {
+        if (emailInput.value.trim() && passwordInput.value.trim().length >= 6) {
+            signupButton.style.display = 'block';
+            dimmedButton.style.display = 'none';
+        } else {
+            signupButton.style.display = 'none';
+            dimmedButton.style.display = 'block';
         }
+    }
 
-        // Add event listeners to input fields
-        emailInput.addEventListener('input', toggleButton);
-        passwordInput.addEventListener('input', toggleButton);
+    emailInput.addEventListener('input', toggleButton);
+    passwordInput.addEventListener('input', toggleButton);
+
+    // Initialize button state
+    toggleButton();
+});
+
     </script>
     
 
