@@ -27,12 +27,13 @@ body {
  FONT-SIZE: 20PX;
 }
 .input-box {
-    border-radius: 3px;
-    padding: 10px;
-    margin: 10px 0;
     width: 90%;
-    border: 1px solid #999;
-    outline: none;
+    padding: 17px;
+    margin-bottom: -150px;
+    border: 1px solid #ccc;
+    margin-left: -10px;
+    margin-top: 60px;
+    position: relative;
 }
 button {
     color: #fff;
@@ -72,7 +73,8 @@ hr {
     color: #2175de;
     cursor: pointer;
     font-size: 14px;
-}
+    margin-top: 38px;
+        }
   
  /* Desktop and up (min-width: 1024px) */
 @media (min-width: 1024px) {
@@ -86,6 +88,22 @@ hr {
         margin-top: 153px;
         left: -268px;
     }
+    .input-box {
+    border-radius: 3px;
+    padding: 10px;
+    margin: 10px 0;
+    width: 90%;
+    border: 1px solid #999;
+    outline: none;
+}
+    .toggle-password-btn {
+    padding: 5px 10px;
+    border: none;
+    background-color: #fff;
+    color: #2175de;
+    cursor: pointer;
+    font-size: 14px;
+}
   }
   @media (width: 320px) and (height: 560px) {
     .left-sidebar-sign-up-form {
