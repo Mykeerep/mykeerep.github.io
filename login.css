@@ -1,0 +1,16 @@
+
+
+
+
+
+
+media query for 320px
+.input-box {
+    width: 90%;
+    padding: 17px;
+    margin-bottom: -150px;
+    border: 1px solid #ccc;
+    margin-left: -10px;
+    margin-top: 60px;
+    position: relative;
+}
