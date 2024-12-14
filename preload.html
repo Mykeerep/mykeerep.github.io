@@ -7,113 +7,135 @@
   <link rel="stylesheet" href="style.css">
   <style>
     /* CSS */
-    
+    body, html {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden; /* Prevent scrolling while the preloader is active */
+    }
 
     .preloader {
       position: fixed;
-       top: 0;
-       left: 0;
-         width: 100%;
-       height: 100%;
-          
-        display: flex;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: white; /* Set a background to fully cover the content */
+      display: flex;
       justify-content: center;
-        align-items: center;
-  
-      z-index: 9999; 
+      align-items: center;
+      z-index: 9999;
     }
 
-    
     .loader-text {
       color: #1da1f2;
-      animation: animate 3s ease-in-out infinite;
       font-size: 1.8em;
       font-weight: bold;
+      animation: animate 3s ease-in-out infinite;
     }
 
-  
-
     @keyframes animate {
-  0% {
-    transform: translateY(0);  /* Initial position */
-    margin-left: 0;
-  }
-  25% {
-    transform: translateY(-15px);  /* Move up by 15px */
-  }
+      0% {
+        transform: translateY(0);
+      }
+      25% {
+        transform: translateY(-15px);
+      }
+      50% {
+        transform: translateY(0);
+      }
     }
 
     .content {
-      text-align: center;
       display: none;
+      text-align: center;
+    }
+
+    /* Style for the form (optional enhancements) */
+    .left-sidebar-sign-up-form {
+      padding: 20px;
+    }
+
+    .input-box {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .signup-btn {
+      width: 100%;
+      padding: 10px;
+      background-color: #1da1f2;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .signup-btn:hover {
+      background-color: #0d95e8;
     }
   </style>
 </head>
 <body>
+  <!-- Preloader -->
   <div class="preloader">
-    <!--<div class="dot"></div>
-    <div class="dot"></div>
-    <div class="dot"></div> -->
     <div class="loader-text">Social Network</div>
   </div>
-  
-  <!-- Your existing content (unchanged from the code you provided) -->
+
+  <!-- Main Content -->
+  <div class="content">
     <div class="left-sidebar-sign-up-form">
-        <!--<h1><Chat Randomly, Connect Deeply.</h1> -->
-        <form action="register.php" method="post">
+      <form action="register.php" method="post">
         <!-- Email Input -->
         <div style="position:relative;">
-            <input type="text" class="input-box" name="email" id="email" placeholder="Your Email">
+          <input type="text" class="input-box" name="email" id="email" placeholder="Your Email">
         </div>
 
         <!-- Password Input -->
         <div style="position:relative;">
-            <input type="password" class="input-box" name="password" id="password" placeholder="Your Password">
-            <!-- Show/Hide Password Button -->
-            <input type="button" class="toggle-password-btn" id="toggle-password" value="Show" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); display: none;">
+          <input type="password" class="input-box" name="password" id="password" placeholder="Your Password">
+          <input type="button" class="toggle-password-btn" id="toggle-password" value="Show" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); display: none;">
         </div>
 
         <button type="submit" class="signup-btn">Register</button>
         <p>Already have an account? <a href="Login.html">Login</a></p>
-    </form>
-        
         <p>If You Don't Have An Account <a href="Register.html">Register</a></p>
-    </form>
+      </form>
     </div>
+  </div>
 
-   <script>
-        const passwordInput = document.getElementById('password');
-        const togglePasswordButton = document.getElementById('toggle-password');
-
-        // Show the toggle button when typing
-        passwordInput.addEventListener('input', () => {
-            if (passwordInput.value.trim() !== '') {
-                togglePasswordButton.style.display = 'block';
-            } else {
-                togglePasswordButton.style.display = 'none';
-            }
-        });
-// Toggle password visibility
-        togglePasswordButton.addEventListener('click', () => {
-            if (passwordInput.type === 'password') {
-                passwordInput.type = 'text';
-                togglePasswordButton.value = 'Hide';
-            } else {
-                passwordInput.type = 'password';
-                togglePasswordButton.value = 'Show';
-            }
-        });
-   </script>
-
+  <!-- Scripts -->
   <script>
-    // JavaScript
+    // Password toggle logic
+    const passwordInput = document.getElementById('password');
+    const togglePasswordButton = document.getElementById('toggle-password');
+
+    passwordInput.addEventListener('input', () => {
+      togglePasswordButton.style.display = passwordInput.value.trim() !== '' ? 'block' : 'none';
+    });
+
+    togglePasswordButton.addEventListener('click', () => {
+      if (passwordInput.type === 'password') {
+        passwordInput.type = 'text';
+        togglePasswordButton.value = 'Hide';
+      } else {
+        passwordInput.type = 'password';
+        togglePasswordButton.value = 'Show';
+      }
+    });
+
+    // Preloader logic
     document.addEventListener("DOMContentLoaded", () => {
       setTimeout(() => {
         document.querySelector(".preloader").style.display = "none";
         document.querySelector(".content").style.display = "block";
+        document.body.style.overflow = "auto"; // Enable scrolling after preloader hides
       }, 3000); // Adjust time as needed
     });
   </script>
 </body>
-  </html>
-  
+</html>
