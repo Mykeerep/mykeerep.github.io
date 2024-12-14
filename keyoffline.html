@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Keypad Offline</title>
+    <style>
+        /* General Styles */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Floating Button */
+        .square-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background-color: #444;
+            color: #fff;
+            font-size: 1.5rem;
+            text-align: center;
+            line-height: 60px;
+            border-radius: 50%;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            z-index: 1000;
+            transition: background 0.3s ease;
+        }
+
+        .square-btn:hover {
+            background-color: #333;
+        }
+
+        /* Floating Keypad Popup */
+        .keypad-container {
+            display: none;
+            position: fixed;
+            bottom: 90px;
+            right: 20px;
+            background-color: #fff;
+            width: 280px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            z-index: 999;
+            padding: 10px;
+            text-align: center;
+        }
+
+        /* Input Field */
+        .keypad-container input {
+            width: 100%;
+            height: 40px;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+            text-align: center;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            outline: none;
+        }
+
+        /* Keypad Grid */
+        .keys {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+
+        .key {
+            width: 60px;
+            height: 60px;
+            background-color: #f0f0f0;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            font-size: 1.5rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .key:hover {
+            background-color: #ddd;
+        }
+
+        /* Delete Key */
+        .key.delete {
+            background-color: #ffdddd;
+            color: #d40000;
+            font-size: 1.2rem;
+        }
+
+        .key.delete:hover {
+            background-color: #ffcccc;
+        }
+
+        /* Call Button */
+        .call-btn {
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            padding: 10px 0;
+            font-size: 1.2rem;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .call-btn:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating Button -->
+    <div class="square-btn" id="squareBtn">⬛</div>
+
+    <!-- Floating Input & Keypad -->
+    <div class="keypad-container" id="keypadContainer">
+        <input type="text" id="inputDisplay" placeholder="Enter number" readonly>
+
+        <!-- Keypad Grid -->
+        <div class="keys">
+            <div class="key" data-value="1">1</div>
+            <div class="key" data-value="2">2</div>
+            <div class="key" data-value="3">3</div>
+            <div class="key" data-value="4">4</div>
+            <div class="key" data-value="5">5</div>
+            <div class="key" data-value="6">6</div>
+            <div class="key" data-value="7">7</div>
+            <div class="key" data-value="8">8</div>
+            <div class="key" data-value="9">9</div>
+            <div class="key" data-value="*">*</div>
+            <div class="key" data-value="0">0</div>
+            <div class="key" data-value="#">#</div>
+            <div class="key delete" id="deleteKey">X</div>
+        </div>
+
+        <!-- Call Button -->
+        <button class="call-btn" id="callBtn">Call</button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const squareBtn = document.getElementById('squareBtn');
+            const keypadContainer = document.getElementById('keypadContainer');
+            const inputDisplay = document.getElementById('inputDisplay');
+            const keys = document.querySelectorAll('.key');
+            const deleteKey = document.getElementById('deleteKey');
+            const callBtn = document.getElementById('callBtn');
+
+            // Toggle keypad popup
+            squareBtn.addEventListener('click', () => {
+                keypadContainer.style.display = keypadContainer.style.display === 'block' ? 'none' : 'block';
+            });
+
+            // Add input functionality to keys
+            keys.forEach(key => {
+                key.addEventListener('click', () => {
+                    const value = key.getAttribute('data-value');
+                    if (value) inputDisplay.value += value;
+                });
+            });
+
+            // Delete last character
+            deleteKey.addEventListener('click', () => {
+                inputDisplay.value = inputDisplay.value.slice(0, -1);
+            });
+
+            // Call button functionality
+            callBtn.addEventListener('click', () => {
+                const number = inputDisplay.value;
+                alert(number ? `Calling ${number}` : 'Please enter a phone number.');
+            });
+        });
+
+        // Reload the same page when offline
+        window.addEventListener('offline', () => {
+            location.reload();
+        });
+    </script>
+</body>
+</html>
