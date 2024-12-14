@@ -1,7 +1,7 @@
 const CACHE_NAME = 'offline-site-v1';
 const CACHE_ASSETS = [
-    './', // Cache the root (line.html)
-    './lime.html', // Fallback offline page
+    
+    './line.html', // Fallback offline page
 ];
 
 // Install Service Worker and Cache Assets
