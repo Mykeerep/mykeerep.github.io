@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Offline Keypad</title>
+    <style>
+        /* CSS Styles */
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background: #f4f4f4;
+        }
+
+        .keypad {
+            background: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+
+        .display {
+            background: #000;
+            color: #0f0;
+            font-size: 2rem;
+            text-align: right;
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+
+        .keys {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+
+        .key {
+            background: #007bff;
+            color: #fff;
+            border: none;
+            font-size: 1.5rem;
+            border-radius: 5px;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .key:hover {
+            background: #0056b3;
+        }
+
+        .key:active {
+            background: #003f7f;
+        }
+    </style>
+</head>
+<body>
+    <div class="keypad">
+        <div class="display" id="display">0</div>
+        <div class="keys">
+            <button class="key" data-value="1">1</button>
+            <button class="key" data-value="2">2</button>
+            <button class="key" data-value="3">3</button>
+            <button class="key" data-value="4">4</button>
+            <button class="key" data-value="5">5</button>
+            <button class="key" data-value="6">6</button>
+            <button class="key" data-value="7">7</button>
+            <button class="key" data-value="8">8</button>
+            <button class="key" data-value="9">9</button>
+            <button class="key" data-value="*">*</button>
+            <button class="key" data-value="0">0</button>
+            <button class="key" data-value="#">#</button>
+        </div>
+    </div>
+
+    <script>
+        // JavaScript for Keypad Functionality
+        document.addEventListener('DOMContentLoaded', () => {
+            const display = document.getElementById('display');
+            const keys = document.querySelectorAll('.key');
+
+            keys.forEach(key => {
+                key.addEventListener('click', () => {
+                    const value = key.getAttribute('data-value');
+                    if (display.textContent === '0') {
+                        display.textContent = value;
+                    } else {
+                        display.textContent += value;
+                    }
+                });
+            });
+        });
+
+        // Register the Service Worker
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('./service-worker.js')
+                .then(registration => {
+                    console.log('Service Worker registered with scope:', registration.scope);
+                })
+                .catch(error => {
+                    console.error('Service Worker registration failed:', error);
+                });
+        }
+    </script>
+</body>
+  </html>
+  
