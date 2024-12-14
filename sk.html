@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phone Dialer</title>
+    <style>
+        /* General styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+
+        .dialer {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            max-width: 400px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            padding: 20px 10px;
+            position: relative;
+        }
+
+        /* Display area */
+        .display {
+            width: 100%;
+            height: 60px;
+            background-color: #f0f0f0;
+            text-align: center;
+            line-height: 60px;
+            font-size: 2rem;
+            color: #333;
+            border: none;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+
+        /* Keypad trigger button */
+        .square-btn {
+            font-size: 2rem;
+            background-color: #e0e0e0;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+            margin-bottom: 10px;
+            transition: background 0.3s;
+        }
+
+        .square-btn:hover {
+            background-color: #d4d4d4;
+        }
+
+        /* Keypad popup (modal) */
+        .keypad-popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff;
+            width: 300px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            z-index: 1000;
+        }
+
+        .keypad-popup .keys {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin: 10px 0;
+        }
+
+        .keypad-popup .key {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 50%;
+            text-align: center;
+            font-size: 1.8rem;
+            color: #333;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .keypad-popup .key:hover {
+            background-color: #ddd;
+        }
+
+        /* Close button */
+        .close-btn {
+            background-color: #ff4444;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .close-btn:hover {
+            background-color: #cc0000;
+        }
+
+        /* Overlay */
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+
+        /* Call button */
+        .call-btn {
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 80px;
+            height: 80px;
+            font-size: 2rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 15px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .call-btn:hover {
+            background-color: #43a047;
+        }
+
+        .call-btn:active {
+            background-color: #388e3c;
+        }
+    </style>
+</head>
+<body>
+    <div class="dialer">
+        <!-- Display -->
+        <input type="text" id="display" class="display" readonly placeholder="Enter number">
+
+        <!-- Square trigger button -->
+        <div class="square-btn" id="squareBtn">⬛ ::::</div>
+
+        <!-- Call Button -->
+        <div class="call-btn" id="call">
+            &#x260E; <!-- Phone Icon -->
+        </div>
+    </div>
+
+    <!-- Overlay -->
+    <div class="overlay" id="overlay"></div>
+
+    <!-- Keypad Popup -->
+    <div class="keypad-popup" id="keypadPopup">
+        <h3>Dial Pad</h3>
+        <div class="keys">
+            <div class="key" data-value="1">1</div>
+            <div class="key" data-value="2">2</div>
+            <div class="key" data-value="3">3</div>
+            <div class="key" data-value="4">4</div>
+            <div class="key" data-value="5">5</div>
+            <div class="key" data-value="6">6</div>
+            <div class="key" data-value="7">7</div>
+            <div class="key" data-value="8">8</div>
+            <div class="key" data-value="9">9</div>
+            <div class="key" data-value="*">*</div>
+            <div class="key" data-value="0">0</div>
+            <div class="key" data-value="#">#</div>
+        </div>
+        <button class="close-btn" id="closeBtn">Close</button>
+    </div>
+
+    <script>
+        // JavaScript for functionality
+        document.addEventListener('DOMContentLoaded', () => {
+            const display = document.getElementById('display');
+            const keys = document.querySelectorAll('.key');
+            const squareBtn = document.getElementById('squareBtn');
+            const keypadPopup = document.getElementById('keypadPopup');
+            const overlay = document.getElementById('overlay');
+            const closeBtn = document.getElementById('closeBtn');
+            const callButton = document.getElementById('call');
+
+            // Open the keypad popup
+            squareBtn.addEventListener('click', () => {
+                keypadPopup.style.display = 'block';
+                overlay.style.display = 'block';
+            });
+
+            // Close the keypad popup
+            closeBtn.addEventListener('click', () => {
+                keypadPopup.style.display = 'none';
+                overlay.style.display = 'none';
+            });
+
+            overlay.addEventListener('click', () => {
+                keypadPopup.style.display = 'none';
+                overlay.style.display = 'none';
+            });
+
+            // Add functionality to number keys
+            keys.forEach(key => {
+                key.addEventListener('click', () => {
+                    const value = key.getAttribute('data-value');
+                    display.value += value;
+                });
+            });
+
+            // Call button functionality
+            callButton.addEventListener('click', () => {
+                const phoneNumber = display.value;
+                if (phoneNumber) {
+                    alert('Calling ' + phoneNumber);
+                } else {
+                    alert('Please enter a phone number.');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
